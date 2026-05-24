@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jieng AI: Core System Architecture & Financial Blueprint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. CORE SETUP & RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: #05050a; display: grid; gap: 40px; grid-template-columns: 1fr; min-height: 100vh; padding: 40px 0; place-items: center; font-family: 'Inter', sans-serif; }
+
+.slide-container {
+  width: 1280px;
+  height: 720px;
+  background-color: #000000;
+  color: #ffffff;
+  overflow: hidden;
+  position: relative;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  border: 1px solid #111111;
+}
+
+/* BACKGROUND DESIGN: PURE BLACK GEOMETRIC GRID */
+.slide-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+.slide-container > * { position: relative; z-index: 1; }
+
+/* 2. TYPOGRAPHY */
+h1, h2, h3 { font-family: 'Urbanist', sans-serif; font-weight: 700; margin: 0; }
+.slide-title { font-size: 40px; line-height: 1.1; margin-bottom: 35px; color: #ffffff; border-left: 5px solid #ffffff; padding-left: 20px; text-transform: uppercase; letter-spacing: 1px; }
+h3 { font-size: 26px; color: #ffffff; margin-bottom: 12px; font-weight: 700; border-bottom: 1px solid #222222; padding-bottom: 8px; }
+p, li { font-size: 19px; line-height: 1.6; color: #a0a0a0; }
+.subtitle { font-size: 24px; color: #888888; margin-top: 20px; max-width: 800px; font-weight: 400; }
+
+/* 3. LAYOUT COMPONENTS */
+.content-area { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; width: 100%; }
+
+.two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; width: 100%; align-items: start; }
+.two-column.tiled > div { background: #0a0a0a; padding: 35px; border-radius: 12px; border: 1px solid #222222; }
+
+.tiled-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; }
+.tile { background: #050505; padding: 35px; border-radius: 12px; border: 1px solid #1a1a1a; transition: border 0.3s ease; }
+.tile:hover { border-color: #ffffff; }
+.tile .icon { font-size: 40px; color: #ffffff; margin-bottom: 20px; }
+
+.highlight-numbers-layout { display: grid; grid-template-columns: 35% 65%; gap: 50px; align-items: center; }
+.number { font-size: 160px; font-weight: 800; color: #ffffff; line-height: 1; font-family: 'Urbanist', sans-serif; letter-spacing: -5px; }
+.number-label { font-size: 24px; font-weight: 600; color: #888888; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+.image-wrapper { border-radius: 12px; overflow: hidden; height: 100%; width: 100%; border: 1px solid #222222; filter: grayscale(100%) contrast(120%); background: #000; }
+.image-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.7; }
+
+/* TABLE STYLES */
+.table-layout table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+.table-layout th { background: #0a0a0a; color: #ffffff; text-align: left; padding: 18px; font-size: 20px; border-bottom: 2px solid #333333; text-transform: uppercase; letter-spacing: 1px; }
+.table-layout td { padding: 15px 18px; border-bottom: 1px solid #1a1a1a; color: #cccccc; font-size: 18px; }
+
+/* BAR CHART (STARK WHITE ON BLACK) */
+.chart-container { display: flex; flex-direction: column; gap: 25px; width: 100%; }
+.bar { display: flex; align-items: center; gap: 25px; }
+.bar .label { flex: 0 0 250px; font-weight: 600; text-align: right; color: #ffffff; font-size: 18px; letter-spacing: 0.5px; }
+.bar-inner { background: #0a0a0a; border-radius: 4px; flex-grow: 1; height: 45px; position: relative; overflow: hidden; border: 1px solid #222222; }
+.bar-fill { height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 20px; color: #000000; background: #ffffff; font-weight: 700; font-size: 16px; }
+
+/* BLEED IMAGE RIGHT */
+.slide-container.bleed-image-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; align-items: start; }
+.bleed-image-layout .content-container { padding: 60px; display: flex; flex-direction: column; justify-content: center; height: 100%; }
+.bleed-image-layout .image-container { height: 720px; width: 100%; overflow: hidden; border-left: 1px solid #222222; background: #000; filter: grayscale(100%) contrast(130%); }
+.bleed-image-layout img.bleed-image-side { width: 100%; height: 720px; object-fit: cover; opacity: 0.6; }
+
+/* TIMELINE */
+.timeline-layout { display: flex; justify-content: space-between; position: relative; width: 100%; height: 380px; align-items: center; }
+.timeline-line { position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: #222222; z-index: 0; transform: translateY(-1px); }
+.timeline-item { width: 22%; position: relative; z-index: 1; text-align: center; }
+.timeline-item::after { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 16px; height: 16px; background: #ffffff; border-radius: 50%; border: 4px solid #000000; }
+.timeline-item .content-wrapper { position: absolute; width: 100%; }
+.timeline-item:nth-child(even) .content-wrapper { bottom: 60%; padding-bottom: 25px; }
+.timeline-item:nth-child(odd) .content-wrapper { top: 60%; padding-top: 25px; }
+
+/* FULL BG IMAGE STARK */
+.full-bg-image { background: #000000; display: flex; align-items: center; justify-content: center; text-align: center; }
+.full-bg-image .content-overlay { background: #050505; padding: 60px; border-radius: 12px; max-width: 850px; border: 1px solid #222222; }
+.full-bg-image h2 { font-size: 52px; margin-bottom: 20px; color: #ffffff; text-transform: uppercase; }
+
+/* Q&A */
+.qa-layout { text-align: center; width: 100%; }
+.qa-layout h2 { font-size: 90px; color: #ffffff; margin-bottom: 15px; letter-spacing: -2px; }
+.qa-layout .contact-info { margin-top: 45px; font-size: 22px; color: #888888; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<div class="slide-container" id="slide1">
+    <div style="text-align: center; align-self: center;">
+        <h1 style="font-size: 96px; line-height: 0.95; margin-bottom: 15px; letter-spacing: -3px; font-weight: 800; text-transform: uppercase;">JIENG AI</h1>
+        <p class="subtitle" style="margin: 0 auto; font-family: monospace; letter-spacing: 1px;">AUTONOMOUS MULTIMODAL SPEECH ECOSYSTEM FOR THUƆŊJÄŊ</p>
+        <div style="margin-top: 50px; height: 2px; width: 80px; background: #ffffff; margin-inline: auto;"></div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide2">
+    <h2 class="slide-title">System Overview Architecture</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-volume-high"></i></div>
+                <h3>Voice-First Interaction</h3>
+                <p>Completely bypasses standard English text blocks. Features a large, singular high-contrast interface designed for local oral communication constraints.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-server"></i></div>
+                <h3>Proprietary Pipeline</h3>
+                <p>16kHz uncompressed mono data acquisition loop filtering acoustic disturbances to preserve pure breathy vowel shifts.</p>
+            </div>
+            <div class="tile">
+                <div class="icon"><i class="fa-solid fa-sitemap"></i></div>
+                <h3>Maciɔr RAG Engine</h3>
+                <p>Eliminates artificial generation fallacies by strictly grounding data extraction inside an immutable clan relationship graph database.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide3">
+    <h2 class="slide-title">Linguistic Centralization Obstacles</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3>Digital Exclusion</h3>
+                <p>Indo-European text standards structurally lock out village elders, traditional traders, and rural mothers from the financial and administrative utility of the 21st-century economy.</p>
+            </div>
+            <div>
+                <h3>Intergenerational Fracture</h3>
+                <p>Urbanization and historical displacement decouple diaspora youth from ancestral kinship branches (*Pädh*), leaving traditional histories vulnerable to irreversible erosion.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Acoustic Tone Complexities</h2>
+    <div class="content-area">
+        <div class="highlight-numbers-layout">
+            <div>
+                <div class="number">04</div>
+                <div class="number-label">Phonetic Tonal Shifts</div>
+            </div>
+            <div>
+                <h3>Commercial Model Limitations</h3>
+                <p>Standard Western engines are functionally tone-blind. Thuɔŋjäŋ relies on precise modal and breathy vowel combinations. A failure to map specialized symbols results in cascading semantic errors during transcription.</p>
+                <div style="margin-top: 25px; display: flex; gap: 12px; font-family: monospace;">
+                    <span style="padding: 10px 20px; background: #111111; border: 1px solid #333333; border-radius: 4px; color: #ffffff; font-weight: bold; font-size: 20px;">ɛ</span>
+                    <span style="padding: 10px 20px; background: #111111; border: 1px solid #333333; border-radius: 4px; color: #ffffff; font-weight: bold; font-size: 20px;">ɔ</span>
+                    <span style="padding: 10px 20px; background: #111111; border: 1px solid #333333; border-radius: 4px; color: #ffffff; font-weight: bold; font-size: 20px;">ä</span>
+                    <span style="padding: 10px 20px; background: #111111; border: 1px solid #333333; border-radius: 4px; color: #ffffff; font-weight: bold; font-size: 20px;">ë</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">Audio-First Accessibility Interface</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Frictionless Field Execution</h3>
+                <p>Eliminates the requirement for complex localized software keyboard navigation. Users toggle a centralized capture node, triggering live streaming directly to the model layers.</p>
+                <ul style="margin-top: 25px; list-style: none;">
+                    <li style="margin-bottom: 15px; border-left: 2px solid #ffffff; padding-left: 15px;"><strong style="color:#fff;">Zero Typing Required:</strong> Native conversational loop.</li>
+                    <li style="margin-bottom: 15px; border-left: 2px solid #ffffff; padding-left: 15px;"><strong style="color:#fff;">Low-Latency Delivery:</strong> Streamlined audio arrays.</li>
+                    <li style="margin-bottom: 15px; border-left: 2px solid #ffffff; padding-left: 15px;"><strong style="color:#fff;">Audio Playback Engine:</strong> Spoken responses for maximum utility.</li>
+                </ul>
+            </div>
+            <div class="image-wrapper">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='100%' height='100%' fill='%23000000'/><circle cx='300' cy='200' r='80' stroke='%23ffffff' stroke-width='2' fill='none' stroke-dasharray='5,5'/><path d='M200,200 L400,200' stroke='%23333333' stroke-width='1'/><path d='M300,100 L300,300' stroke='%23333333' stroke-width='1'/></svg>" alt="Black Aesthetic Minimalist Interface Graphic">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Digital Signal Processing Mechanics</h2>
+    <div class="content-area">
+        <div class="two-column" style="align-items: center;">
+            <div class="image-wrapper" style="border-radius: 8px; width: 100%; height: 350px;">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='350' viewBox='0 0 600 350'><rect width='100%' height='100%' fill='%23050505'/><path d='M 10,175 Q 150,50 300,175 T 590,175' fill='none' stroke='%23ffffff' stroke-width='2'/><path d='M 10,175 Q 150,250 300,175 T 590,175' fill='none' stroke='%23222222' stroke-width='1'/></svg>" alt="Stark Black and White Waveform Line Art">
+            </div>
+            <div>
+                <h3>Transfer Learning Framework</h3>
+                <p>The early feature-extraction matrices of open-weight foundational encoders remain frozen. Backpropagation optimization targets the upper 35% layers using Connectionist Temporal Classification (CTC) loss logic.</p>
+                <div style="background: #050505; padding: 25px; border-radius: 6px; border: 1px solid #222222; margin-top: 25px;">
+                    <p style="color: #ffffff; font-family: monospace; font-size: 15px; line-height: 1.4;">
+                        # Vocabulary Matrix Array Boundaries<br>
+                        vocab = ["[PAD]", "[UNK]", "[BOS]", "[EOS]"]<br>
+                        extended_glyphs = ['ɛ', 'ɔ', 'ä', 'ë', 'ɛ̈', 'ɔ̈']<br>
+                        assert dynamic_headroom_db == -12
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container bleed-image-layout" id="slide7">
+    <div class="content-container">
+        <h2 class="slide-title" style="border-left: none; padding-left: 0;">Grounding Contextual Integrity</h2>
+        <div class="content-area">
+            <h3>The Relational Vault</h3>
+            <p>To eliminate hallucinated anomalies, character extractions map directly onto a graph schema database. Spoken lineages link dynamically across generational edges, maintaining perfect tracking integrity without model creative liberty.</p>
+            <p>Bypasses generative error frameworks by executing search matches directly on geographic clusters and demographic matrices.</p>
+        </div>
+    </div>
+    <div class="image-container">
+        <img class="bleed-image-side" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='720' viewBox='0 0 600 720'><rect width='100%' height='100%' fill='%23000000'/><circle cx='300' cy='200' r='30' fill='%23ffffff'/><circle cx='150' cy='400' r='20' fill='%23555555'/><circle cx='450' cy='400' r='20' fill='%23555555'/><line x1='300' y1='230' x2='150' y2='380' stroke='%23ffffff' stroke-width='2'/><line x1='300' y1='230' x2='450' y2='380' stroke='%23ffffff' stroke-width='2'/></svg>" alt="Stark Relational Graph Abstract Diagram">
+    </div>
+</div>
+
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Unified Family Enterprise Specialization</h2>
+    <div class="content-area">
+        <div class="two-column tiled">
+            <div>
+                <h3><i class="fa-solid fa-headset" style="margin-right:12px;"></i> Content Operations</h3>
+                <p>Led by Sisters 1 & 2. Manages acoustically isolated field production settings in Juba. Protects structural audio parameters from noise overhead, ensuring high-purity master repository data ingestion.</p>
+            </div>
+            <div>
+                <h3><i class="fa-solid fa-terminal" style="margin-right:12px;"></i> Engineering Systems</h3>
+                <p>Maintained by the Technical Lead. Conducts token vocabulary compilation, dynamic normalization routines, model architecture fine-tuning, and enterprise NGO white-label API deployment tracks.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container table-layout" id="slide9">
+    <h2 class="slide-title">Financial Modeling & Revenue Channels</h2>
+    <div class="content-area">
+        <table>
+            <thead>
+                <tr>
+                    <th>Target Market Segment</th>
+                    <th>Year 1 Operational Matrix</th>
+                    <th>Year 5 Target Projection</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Diaspora Genealogy Subscription</strong></td>
+                    <td>$59,940 <span style="font-size:13px; color:#666;">(500 active profiles at $9.99/mo)</span></td>
+                    <td>$1,808,200 / year</td>
+                </tr>
+                <tr>
+                    <td><strong>NGO Multi-Platform API Lease</strong></td>
+                    <td>$30,000 <span style="font-size:13px; color:#666;">(Localization tool white-labeling)</span></td>
+                    <td>$400,000 / year</td>
+                </tr>
+                <tr>
+                    <td><strong>Content Engine Ad Networks</strong></td>
+                    <td>$3,700 – $10,100 <span style="font-size:13px; color:#666;">(Short-form programmatic distribution)</span></td>
+                    <td>$107,000 / year</td>
+                </tr>
+                <tr style="background: #111111; font-weight: bold; color: #ffffff;">
+                    <td>SYSTEM CONSOLIDATED INCOME</td>
+                    <td>~$100,000</td>
+                    <td>~$2,665,200 / year</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 30px; font-size: 16px; text-align: center; font-family: monospace; color:#666;">*All transactions managed through centralized infrastructure loops ensuring baseline self-funding capability.</p>
+    </div>
+</div>
+
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">Data Sovereignty & Regional Domains</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Decolonial Architecture</h3>
+                <p>Protects native voice samples from extractive practices. Access remains free for local verification networks, while commercial tech giants must secure data leases from the family trust infrastructure.</p>
+            </div>
+            <div>
+                <h3>Linguistic Classifications</h3>
+                <p>Systematically engineered to scale smoothly across the 5 primary civilization blocks:</p>
+                <p style="font-family: monospace; margin-top: 15px; font-size: 16px; color:#ffffff; line-height: 1.4;">
+                    - DK_SW: Southwestern / Rek & Twic Cluster<br>
+                    - DK_SC: South Central / Agar Cluster<br>
+                    - DK_SE: Southeastern / Bor Cluster<br>
+                    - DK_NE: Northeastern / Padang Cluster<br>
+                    - DK_NW: Northwestern / Ruweng & Ngok Cluster
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide11">
+    <h2 class="slide-title">Execution Phases & Milestones</h2>
+    <div class="content-area">
+        <div class="timeline-layout">
+            <div class="timeline-line"></div>
+            <div class="timeline-item">
+                <div class="content-wrapper">
+                    <h3>Phase I</h3>
+                    <p style="font-size: 16px;">Juba Field Node setup. Audio ingestion pipeline structural verification.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="content-wrapper">
+                    <h3>Phase II</h3>
+                    <p style="font-size: 16px;">Custom tokenizer layer calibration. Word Error Rate benchmarks initialized.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="content-wrapper">
+                    <h3>Phase III</h3>
+                    <p style="font-size: 16px;">Maciɔr Graph engine deployment to premium diaspora validation nodes.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="content-wrapper">
+                    <h3>Phase IV</h3>
+                    <p style="font-size: 16px;">B2B institutional API connectivity established with local NGO platforms.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container full-bg-image" id="slide12">
+    <div class="content-overlay">
+        <h2>Indestructible Heritage Vault</h2>
+        <p style="font-size: 24px; color: #ffffff; margin-bottom: 30px; font-weight: 400;">"By transforming oral traditions into precise, machine-readable code matrices, we secure our language and ancestral lineages against erasure forever."</p>
+        <div style="font-family: monospace; font-size: 18px; color: #666666; letter-spacing: 1px;">
+            SYSTEM STATUS: COMPILED & READY FOR WORKSTATION EXECUTION
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
