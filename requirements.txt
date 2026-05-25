@@ -1,0 +1,6 @@
+# requirements.txt
+# This file tracks the external library packages needed for the Jieng AI pipeline.
+
+pandas>=2.0.0
+pydub>=0.25.1
+streamlit>=1.30.0

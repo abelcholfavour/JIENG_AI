@@ -1,0 +1,6 @@
+# Exclude heavy audio binaries from version control
+data_audio/
+
+# Exclude system junk files
+.DS_Store
+Thumbs.db
