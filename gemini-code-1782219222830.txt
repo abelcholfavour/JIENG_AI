@@ -1,0 +1,34 @@
+Audio_Filename,English_Text,Dinka_Text,Category,Grammar_Tag,Tense,Speaker_ID
+,Sound of B,B / b,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of C,C / c,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of D,D / d,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of Dh,Dh / dh,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of G,G / g,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of J,J / j,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of K,K / k,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of L,L / l,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of M,M / m,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of N,N / n,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of Nh,Nh / nh,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of Ny,Ny / ny,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of Ng,Ŋ / ŋ,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of P,P / p,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of R,R / r,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of T,T / t,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of Th,Th / th,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of W,W / w,Alphabet_Consonant,N/A,N/A,Primary_01
+,Sound of Y,Y / y,Alphabet_Consonant,N/A,N/A,Primary_01
+,Normal A,A / a,Vowel_Standard,N/A,N/A,Primary_01
+,Breathy A,Ä / ä,Vowel_Breathy,N/A,N/A,Primary_01
+,Normal E,E / e,Vowel_Standard,N/A,N/A,Primary_01
+,Breathy E,Ë / ë,Vowel_Breathy,N/A,N/A,Primary_01
+,Open E,Ɛ / ɛ,Vowel_Open,N/A,N/A,Primary_01
+,Breathy Open E,Ɛ̈ / ɛ̈,Vowel_Breathy_Open,N/A,N/A,Primary_01
+,Normal I,I / i,Vowel_Standard,N/A,N/A,Primary_01
+,Breathy I,Ï / ï,Vowel_Breathy,N/A,N/A,Primary_01
+,Normal O,O / o,Vowel_Standard,N/A,N/A,Primary_01
+,Breathy O,Ö / ö,Vowel_Breathy,N/A,N/A,Primary_01
+,Open O,Ɔ / ɔ,Vowel_Open,N/A,N/A,Primary_01
+,Breathy Open O,Ɔ̈ / ɔ̈,Vowel_Breathy_Open,N/A,N/A,Primary_01
+,Normal U,U / u,Vowel_Standard,N/A,N/A,Primary_01
+,Breathy U,Ü / ü,Vowel_Breathy,N/A,N/A,Primary_01
